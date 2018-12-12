@@ -2,9 +2,17 @@
 .field
   label.label {{ label }}
   .control(:class="{'has-icons-left': icon, 'has-icons-right': validation.$error}")
-    input.input(:type="type"
+    textarea.textarea(v-if="type === 'textarea'"
+                     :placeholder="placeholder"
+                     :class="{'is-danger': validation.$error}"
+                     :disabled="disabled"
+                     :value="value"
+                     @input="$emit('input', $event.target.value)")
+    input.input(v-else
+               :type="type"
                :placeholder="placeholder"
                :class="{'is-danger': validation.$error}"
+               :disabled="disabled"
                :value="value"
                @input="$emit('input', $event.target.value)")
     span.icon.is-small.is-left(v-if="icon")
@@ -29,7 +37,8 @@ export default {
         return {}
       }
     },
-    showValidationMessage: { type: Boolean, default: true }
+    showValidationMessage: { type: Boolean, default: true },
+    disabled: { type: Boolean, default: false }
   },
 
   data() {

@@ -5,22 +5,27 @@ div
   .columns
     .column.is-half
       form(@submit.prevent="register")
+        my-input(label="Firstname"
+                 v-model="data.firstName")
+        my-input(label="Lastname"
+                v-model="data.lastName")
         my-input(label="Username"
-                icon="user"
                 v-model="username"
                 :validation="$v.username")
         my-input(label="E-mail"
                 type="email"
-                icon="envelope"
                 v-model="email"
                 :validation="$v.email")
         my-input(label="Password"
                 type="password"
-                icon="lock"
                 v-model="password"
                 :validation="$v.password")
+        my-input(label="Something about you"
+                type="textarea"
+                v-model="data.about"
+                :validation="$v.about")
         
-        .control.account-create-btn
+        .control.m-1
           button.button.is-primary(type="submit") Create my account
 </template>
 
@@ -33,7 +38,12 @@ export default {
     return {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      data: {
+        firstName: '',
+        lastName: '',
+        about: ''
+      }
     }
   },
 
@@ -62,7 +72,7 @@ export default {
             username: this.username,
             email: this.email,
             password: this.password,
-            data: {}
+            data: this.data
           })
 
           this.$store.commit('login', data)
@@ -82,8 +92,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-  .account-create-btn
-    margin-top: 1.5rem
-</style>

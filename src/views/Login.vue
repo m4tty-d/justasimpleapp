@@ -17,7 +17,7 @@ div
                 :validation="$v.password"
                 :showValidationMessage="false")
         
-        .control.account-create-btn
+        .control.m-1
           button.button.is-primary(type="submit") Login
 </template>
 
@@ -70,8 +70,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-  .account-create-btn
-    margin-top: 1.5rem
-</style>

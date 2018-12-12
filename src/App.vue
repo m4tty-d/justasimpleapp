@@ -46,4 +46,7 @@ export default {
   .my-notification
     margin-right: 1rem
     margin-bottom: 1rem
+  
+  .m-1
+    margin-top: 1.5rem
 </style>
