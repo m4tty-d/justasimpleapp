@@ -6,36 +6,30 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: '',
-    profileId: ''
+    token: ''
   },
   getters: {
-    isLoggedIn: state => state.token && state.profileId
+    isLoggedIn: state => state.token
   },
   mutations: {
     login(state, payload) {
       state.token = payload.token
-      state.profileId = payload.profileId
 
       localStorage.setItem('x-jasa-token', state.token)
-      localStorage.setItem('jasa-profile-id', state.profileId)
 
       router.push({ name: 'profile' })
     },
 
     logout(state) {
       state.token = ''
-      state.profileId = ''
 
       localStorage.removeItem('x-jasa-token')
-      localStorage.removeItem('jasa-profile-id')
 
-      router.push({ name: 'home' })
+      router.push({ name: 'login' })
     },
 
     autoLogin(state) {
       state.token = localStorage.getItem('x-jasa-token')
-      state.profileId = localStorage.getItem('jasa-profile-id')
     }
   },
   actions: {}
