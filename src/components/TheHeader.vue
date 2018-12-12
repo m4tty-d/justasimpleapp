@@ -1,5 +1,5 @@
 <template lang="pug">
-nav.navbar(:class="{'is-dark': darkVariant, 'is-fixed-top': isFixed}")
+nav.navbar(:class="{'is-fixed-top': isFixed}")
   .container
     .navbar-brand
       .navbar-item
@@ -17,18 +17,19 @@ nav.navbar(:class="{'is-dark': darkVariant, 'is-fixed-top': isFixed}")
       //-               :to="{name: page.name}") {{ page.title }}
       .navbar-end
         .navbar-item
-          .buttons
-            router-link(class="button is-danger" :to="{name: 'registration'}") Register
-            router-link(class="button is-dark" :to="{name: 'login'}") Login
+          .buttons(v-if="isLoggedIn")
+            router-link(class="button is-outlined" :to="{name: 'profile'}") my profile
+            .button.is-outlined.is-danger(@click="logout") logout
+          .buttons(v-else)
+            router-link(class="button is-danger" :to="{name: 'registration'}") I WANT an account
+            router-link(class="button is-dark" :to="{name: 'login'}") Already have one, just let me in
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   props: {
-    variant: {
-      type: String,
-      default: 'dark'
-    },
     isFixed: {
       type: Boolean,
       default: true
@@ -36,15 +37,17 @@ export default {
   },
 
   computed: {
-    darkVariant() {
-      return this.variant === 'dark'
-    }
+    ...mapGetters(['isLoggedIn'])
   },
 
   data() {
     return {
       pages: [{ name: 'home', title: 'Home' }, { name: 'about', title: 'About' }]
     }
+  },
+
+  methods: {
+    ...mapMutations(['logout'])
   }
 }
 </script>

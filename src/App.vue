@@ -6,6 +6,10 @@
       the-header
       .container.fixed-navbar-margin
         router-view
+    notifications(position="bottom right" :duration="5500")
+      template(slot="body" slot-scope="props")
+        article.message.my-notification(:class="{'is-danger': props.item.type === 'error', 'is-primary': props.item.type === 'success', 'is-warning': props.item.type === 'warning'}")
+          .message-body(v-html="props.item.text")
 </template>
 
 <script>
@@ -20,6 +24,10 @@ export default {
     isHome() {
       return this.$route.name === 'home'
     }
+  },
+
+  created() {
+    this.$store.commit('autoLogin')
   }
 }
 </script>
@@ -34,4 +42,8 @@ export default {
   
   .cursor-pointer
     cursor: pointer
+  
+  .my-notification
+    margin-right: 1rem
+    margin-bottom: 1rem
 </style>
